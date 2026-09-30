@@ -1,10 +1,12 @@
 # pop-science-video
 
+**中文** | [English](README.en.md)
+
 一个 Claude Code 技能（Skill）加一台出片引擎：给一个主题，模型先写脚本和节拍表等你确认，再写逐帧绘图代码，引擎负责配音、合成、渲染和验收，做出一支画面一直在演的科普动画。
 
 不用图片生成，不用视频生成，也不用剪辑软件。画面是代码在一块 Canvas 上按时间画出来的，由 [HyperFrames](https://github.com/heygen-com/hyperframes) 逐帧渲染。
 
-A Claude Code skill plus a small render engine for narrated explainer animations. The model writes the script, a beat table and the frame-by-frame drawing code; the engine does text-to-speech, mixing, compositing, HyperFrames rendering and verification. No image or video generation models involved. Documentation is in Chinese.
+A Claude Code skill plus a small render engine for narrated explainer animations. The model writes the script, a beat table and the frame-by-frame drawing code; the engine does text-to-speech, mixing, compositing, HyperFrames rendering and verification. No image or video generation models involved. English README: [README.en.md](README.en.md).
 
 ## 样片
 
