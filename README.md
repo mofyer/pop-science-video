@@ -8,9 +8,9 @@ A Claude Code skill plus a small render engine for narrated explainer animations
 
 ## 样片
 
-[![点击在 YouTube 上观看样片](demo/cover.jpg)](https://youtu.be/ogl79nqNduM)
+https://github.com/user-attachments/assets/0632d1b6-8e62-4832-aa45-941754234241
 
-点上面的封面在 [YouTube](https://youtu.be/ogl79nqNduM) 上看；仓库里也有一份压缩过的文件 [demo/opus_animation.mp4](demo/opus_animation.mp4)。
+上面是 720p 的预览版，播放器默认静音，记得打开声音。1080p 的在 [YouTube](https://youtu.be/ogl79nqNduM) 上，仓库里也有一份压缩过的文件 [demo/opus_animation.mp4](demo/opus_animation.mp4)。
 
 《不会画画也能做动画：Opus 5.5 出片工作流全拆解》，6 分 05 秒，1920×1080。这支片子讲的就是本仓库这套流程，它自己也是用这套流程做出来的；完整工程在 [examples/opus_animation/](examples/opus_animation/)。
 
@@ -63,7 +63,7 @@ A Claude Code skill plus a small render engine for narrated explainer animations
 | [engine/](engine/) | 出片引擎（Python 加一个 Node 脚本）和它的测试，说明见 [engine/README.md](engine/README.md) 与 [engine/STAGE_CONTRACT.md](engine/STAGE_CONTRACT.md) |
 | [tools/](tools/) | 安装脚本；长片用的分镜拼装工具 `build.py`、取帧 `snap.sh`、查节拍时刻 `beats.py` |
 | [examples/opus_animation/](examples/opus_animation/) | 样片的完整工程：制作单、[脚本与节拍表](examples/opus_animation/SCRIPT.md)、23 镜画面代码 |
-| [demo/](demo/) | 样片和它的封面、逐镜拼图、机器人姿态图、验收记录 |
+| [demo/](demo/) | 样片、逐镜拼图、机器人姿态图、验收记录 |
 
 ## 开始用
 
