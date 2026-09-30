@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s08_mute": "静音",
+  "s08_cover": "遮住字幕",
+  "s08_see": "还看得懂吗",
+  "s08_slides": "幻灯片",
+  "s08_redo": "重做"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "mute": "tick",
+  "cover": "drop",
+  "see": "ding",
+  "redo": "whoosh"
+ },
+ "cut": [1168, 415],
+ "pause_after": 0.9
+}

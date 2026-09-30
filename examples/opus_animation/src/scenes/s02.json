@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s02_text": "输出：文字",
+  "s02_novideo": "不是视频",
+  "s02_code": "代码也是文字",
+  "s02_time": "按时间作画",
+  "s02_thirty": "1 秒 30 张"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "novideo": "pop",
+  "time": "rise",
+  "thirty": "tick",
+  "link": "ding"
+ },
+ "cut": "band",
+ "pause_after": 0.3
+}

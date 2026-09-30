@@ -1,0 +1,33 @@
+# Dependencies and the Python environment
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# What the engine generates inside an episode directory
+episodes/*/build/
+episodes/*/audio/
+episodes/*/output/
+episodes/*/evidence/
+episodes/*/preview/
+episodes/*/public/
+episodes/*/index.html
+episodes/*/timeline.json
+episodes/*/.lock
+examples/*/build/
+examples/*/audio/
+examples/*/output/
+examples/*/evidence/
+examples/*/preview/
+examples/*/public/
+examples/*/index.html
+examples/*/timeline.json
+examples/*/.lock
+
+# Never commit credentials or local settings
+.env
+.env.*
+*.env
+.claude/settings.local.json
+
+.DS_Store

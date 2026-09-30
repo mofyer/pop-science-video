@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s15_word": "每个词的时间",
+  "s15_beat": "节拍",
+  "s15_table": "同一张表",
+  "s15_pic": "画面",
+  "s15_sfx": "音效",
+  "s15_jump": "跳！"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "word": "tick",
+  "sec": "drop",
+  "jump": "pop",
+  "land": "ding"
+ },
+ "cut": "band"
+}

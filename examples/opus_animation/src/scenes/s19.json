@@ -1,0 +1,17 @@
+{
+ "labels": {
+  "s19_watch": "逐段看成片",
+  "s19_sample": "每 0.7 秒一帧",
+  "s19_compare": "对照节拍表",
+  "s19_miss": "这里没发生"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "notgood": "pop",
+  "sample": "tick",
+  "compare": "whoosh",
+  "real": "ding"
+ },
+ "cut": [1437, 522],
+ "pause_after": 0.3
+}

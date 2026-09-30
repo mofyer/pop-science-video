@@ -1,0 +1,23 @@
+{
+ "labels": {
+  "s01_q1": "不会画画？",
+  "s01_q2": "不会剪辑？",
+  "s01_yes": "能！",
+  "s01_opus": "Opus 5.5",
+  "s01_noimg": "没用图片生成",
+  "s01_novid": "没用视频生成",
+  "s01_noedit": "没人动手剪",
+  "s01_flow": "一套流程"
+ },
+ "sfx": {
+  "cut": "drop",
+  "yes": "pop",
+  "code": "sparkle",
+  "noedit": "tick",
+  "open": "whoosh"
+ },
+ "cut": [
+  876,
+  306
+ ]
+}

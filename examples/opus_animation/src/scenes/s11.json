@@ -1,0 +1,19 @@
+{
+ "labels": {
+  "s11_narr": "旁白",
+  "s11_pic": "画面",
+  "s11_word": "哪个词",
+  "s11_thing": "哪件事",
+  "s11_action": "写动作",
+  "s11_add": "补一个动作"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "key": "sparkle",
+  "thing": "pop",
+  "gap": "tick",
+  "add": "ding"
+ },
+ "cut": [1511, 602],
+ "pause_after": 0.6
+}

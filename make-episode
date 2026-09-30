@@ -1,0 +1,8 @@
+#!/bin/sh
+# One-command entry point: runs the engine with the repo's .venv, where the Azure Speech SDK is pinned.
+here=$(cd "$(dirname "$0")" && pwd)
+if [ ! -x "$here/.venv/bin/python" ]; then
+  echo "make-episode: .venv is missing; run tools/setup.sh once" >&2
+  exit 1
+fi
+exec "$here/.venv/bin/python" "$here/engine/make_episode.py" "$@"

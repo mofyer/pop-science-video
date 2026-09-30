@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s14_fn": "每镜一个函数",
+  "s14_time": "只由时间决定",
+  "s14_same": "同一时刻",
+  "s14_pic": "同一幅画",
+  "s14_hf": "HyperFrames",
+  "s14_jump": "跳着取帧"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "law": "drop",
+  "pic": "ding",
+  "hf": "pop",
+  "jump": "tick"
+ },
+ "cut": "band"
+}

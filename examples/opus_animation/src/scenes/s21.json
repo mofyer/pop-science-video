@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s21_music": "好不好听？",
+  "s21_say": "读音准吗？",
+  "s21_phone": "手机上呢？",
+  "s21_human": "请人来听",
+  "s21_open": "还没验证"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "music": "pop",
+  "human": "rise",
+  "deliver": "whoosh",
+  "list": "ding"
+ },
+ "cut": "band",
+ "pause_after": 0.3
+}

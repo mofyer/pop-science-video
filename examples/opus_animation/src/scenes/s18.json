@@ -1,0 +1,21 @@
+{
+ "labels": {
+  "s18_eleven": "11 项验收",
+  "s18_number": "数字",
+  "s18_sub": "字幕",
+  "s18_loud": "响度",
+  "s18_first": "首帧",
+  "s18_motion": "动态",
+  "s18_two": "2 秒",
+  "s18_four": "4 秒",
+  "s18_stop": "停下"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "eleven": "tick",
+  "number": "pop",
+  "loud": "rise",
+  "stop": "drop"
+ },
+ "cut": "band"
+}

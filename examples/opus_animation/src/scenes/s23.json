@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s23_skill": "写成 Skill",
+  "s23_follow": "让它照着做",
+  "s23_check": "让它自己查",
+  "s23_brand": "极客Ai科技",
+  "s23_slogan": "陪你把 AI 真正用起来"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "notyet": "pop",
+  "check": "ding",
+  "brand": "rise",
+  "use": "sparkle"
+ },
+ "cut": "band",
+ "pause_after": 3.0
+}

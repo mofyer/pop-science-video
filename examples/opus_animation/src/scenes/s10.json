@@ -1,0 +1,19 @@
+{
+ "labels": {
+  "s10_source": "来源",
+  "s10_read": "读过原文",
+  "s10_n30": "30",
+  "s10_reg": "数字先登记",
+  "s10_locked": "读不到",
+  "s10_out": "不进旁白"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "read": "sparkle",
+  "number": "drop",
+  "locked": "tick",
+  "out": "whoosh"
+ },
+ "cut": "band",
+ "pause_after": 0.6
+}

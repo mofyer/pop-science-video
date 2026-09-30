@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s03_cc": "Claude Code",
+  "s03_skill": "Skill",
+  "s03_md": "SKILL.md",
+  "s03_line": "一段简介",
+  "s03_load": "用到才加载"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "tired": "drop",
+  "skill": "pop",
+  "card": "tick",
+  "load": "ding"
+ },
+ "cut": "band",
+ "pause_after": 0.6
+}

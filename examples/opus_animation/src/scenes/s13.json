@@ -1,0 +1,19 @@
+{
+ "labels": {
+  "s13_step": "第 2 步",
+  "s13_sheet": "制作单",
+  "s13_spec": "规格表",
+  "s13_kit": "绘图库",
+  "s13_code": "画面代码",
+  "s13_rest": "引擎生成"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "go": "pop",
+  "four": "tick",
+  "code": "drop",
+  "rest": "rise"
+ },
+ "cut": [1501, 353],
+ "pause_after": 0.8
+}

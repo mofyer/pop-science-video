@@ -1,0 +1,551 @@
+{
+ "title": "不会画画也能做动画_Opus5.5出片工作流全拆解",
+ "series": "极客Ai科技 · AI 动画小课堂",
+ "sheet": "production-sheet.md",
+ "voice": "zh-CN-XiaoyiNeural",
+ "music": {
+  "synth": "marimba",
+  "bpm": 108,
+  "gain_db": -11
+ },
+ "footer": "角色与画面为示意",
+ "accent": [
+  "#4b4fd9",
+  "#f08a3c"
+ ],
+ "motion": {
+  "max_frozen": 2.0,
+  "max_beat_gap": 4.0
+ },
+ "sources": [
+  {
+   "id": "F01",
+   "label": "Anthropic《Models overview》",
+   "url": "https://platform.claude.com/docs/en/about-claude/models/overview"
+  },
+  {
+   "id": "F02",
+   "label": "Claude Code 文档《Extend Claude with skills》",
+   "url": "https://code.claude.com/docs/en/skills"
+  },
+  {
+   "id": "F06",
+   "label": "HyperFrames（heygen-com/hyperframes）README",
+   "url": "https://github.com/heygen-com/hyperframes"
+  },
+  {
+   "id": "F18",
+   "label": "Microsoft Learn《How to synthesize speech from text》",
+   "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/how-to-speech-synthesis"
+  }
+ ],
+ "scenes": [
+  {
+   "id": "S01",
+   "pause_after": 0.3,
+   "reveals": {
+    "draw": "不会画画",
+    "cut": "也不会剪辑",
+    "yes": "能。",
+    "film": "这支视频",
+    "code": "画面代码",
+    "noimg": "图片生成",
+    "novid": "视频生成",
+    "noedit": "动手剪辑",
+    "flow": "流程",
+    "open": "拆开"
+   },
+   "sfx": {
+    "cut": "drop",
+    "yes": "pop",
+    "code": "sparkle",
+    "noedit": "tick",
+    "open": "whoosh"
+   }
+  },
+  {
+   "id": "S02",
+   "pause_after": 0.3,
+   "reveals": {
+    "lm": "语言模型",
+    "text": "输出的是文字",
+    "novideo": "不是视频",
+    "code": "代码也是文字",
+    "prog": "写一段程序",
+    "time": "按时间",
+    "thirty": "三十张",
+    "link": "连起来"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "novideo": "pop",
+    "time": "rise",
+    "thirty": "tick",
+    "link": "ding"
+   },
+   "source": {
+    "ids": [
+     "F01"
+    ],
+    "text": "Anthropic《Models overview》"
+   }
+  },
+  {
+   "id": "S03",
+   "pause_after": 0.6,
+   "reveals": {
+    "teach": "从头教",
+    "tired": "太累",
+    "cc": "有个机制",
+    "skill": "Skill",
+    "folder": "一个文件夹",
+    "book": "一份说明书",
+    "card": "一段简介",
+    "use": "用到的时候",
+    "load": "读进来"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "tired": "drop",
+    "skill": "pop",
+    "card": "tick",
+    "load": "ding"
+   },
+   "source": {
+    "ids": [
+     "F02"
+    ],
+    "text": "Claude Code 文档《Extend Claude with skills》"
+   }
+  },
+  {
+   "id": "S04",
+   "pause_after": 0.6,
+   "reveals": {
+    "ours": "这个 Skill",
+    "three": "三样东西",
+    "rules": "流程和规矩",
+    "motion": "动效手册",
+    "kit": "绘图库",
+    "say": "“做科普视频”",
+    "open": "翻开"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "three": "rise",
+    "kit": "pop",
+    "say": "tick",
+    "open": "ding"
+   }
+  },
+  {
+   "id": "S05",
+   "pause_after": 0.4,
+   "reveals": {
+    "engine": "一台引擎",
+    "split": "分工",
+    "brain": "负责动脑",
+    "code": "写代码",
+    "look": "看图",
+    "work": "负责干活",
+    "line": "从配音到验收",
+    "nomodel": "不用大模型"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "engine": "rise",
+    "split": "drop",
+    "code": "pop",
+    "nomodel": "ding"
+   }
+  },
+  {
+   "id": "S06",
+   "pause_after": 0.3,
+   "reveals": {
+    "open": "开源框架",
+    "hf": "HyperFrames",
+    "page": "一张网页",
+    "when": "第几秒出现",
+    "inside": "写在里面",
+    "browser": "后台的浏览器",
+    "seek": "跳到",
+    "shot": "截图",
+    "encode": "压成视频",
+    "same": "同样的输入",
+    "out": "同样的成片"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "hf": "pop",
+    "page": "whoosh",
+    "shot": "tick",
+    "encode": "rise",
+    "out": "ding"
+   },
+   "source": {
+    "ids": [
+     "F06"
+    ],
+    "text": "HyperFrames（heygen-com/hyperframes）README"
+   }
+  },
+  {
+   "id": "S07",
+   "pause_after": 0.5,
+   "reveals": {
+    "four": "四条硬规则",
+    "card": "文字卡片",
+    "scene": "场景",
+    "moving": "一直在动",
+    "onword": "动在字上",
+    "act": "要演",
+    "stand": "干站着"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "four": "pop",
+    "card": "drop",
+    "onword": "tick",
+    "stand": "ding"
+   }
+  },
+  {
+   "id": "S08",
+   "pause_after": 0.9,
+   "reveals": {
+    "mute": "声音关掉",
+    "cover": "字幕遮住",
+    "see": "看不看得出",
+    "cant": "看不出来",
+    "slides": "幻灯片",
+    "redo": "重做"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "mute": "tick",
+    "cover": "drop",
+    "see": "ding",
+    "redo": "whoosh"
+   }
+  },
+  {
+   "id": "S09",
+   "pause_after": 0.7,
+   "reveals": {
+    "two": "两步",
+    "topic": "一个主题",
+    "notyet": "马上出片",
+    "three": "三样东西",
+    "ledger": "事实台账",
+    "narr": "旁白",
+    "beat": "节拍表"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "topic": "pop",
+    "notyet": "whoosh",
+    "three": "tick",
+    "beat": "ding"
+   }
+  },
+  {
+   "id": "S10",
+   "pause_after": 0.6,
+   "reveals": {
+    "right": "说得对不对",
+    "source": "写明来源",
+    "read": "打开读过",
+    "number": "每个数字",
+    "locked": "读不到原文",
+    "out": "不进旁白"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "read": "sparkle",
+    "number": "drop",
+    "locked": "tick",
+    "out": "whoosh"
+   }
+  },
+  {
+   "id": "S11",
+   "pause_after": 0.6,
+   "reveals": {
+    "key": "最关键",
+    "or": "动画还是幻灯片",
+    "rows": "每一镜",
+    "word": "哪个词",
+    "thing": "哪件事",
+    "action": "只写动作",
+    "gap": "两秒",
+    "add": "补一个动作"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "key": "sparkle",
+    "thing": "pop",
+    "gap": "tick",
+    "add": "ding"
+   }
+  },
+  {
+   "id": "S12",
+   "pause_after": 1.0,
+   "reveals": {
+    "hand": "交到你手上",
+    "gate": "才开工",
+    "truth": "说句实话",
+    "twice": "打回了两次",
+    "first": "第一次",
+    "unclear": "没讲清楚",
+    "second": "第二次",
+    "missed": "漏了",
+    "now": "你现在看到的",
+    "third": "第三版"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "gate": "tick",
+    "twice": "drop",
+    "missed": "pop",
+    "third": "ding"
+   }
+  },
+  {
+   "id": "S13",
+   "pause_after": 0.8,
+   "reveals": {
+    "step": "第二步",
+    "go": "出片",
+    "four": "四个文件",
+    "sheet": "制作单",
+    "spec": "规格表",
+    "kit": "绘图库",
+    "code": "画面代码",
+    "rest": "引擎生成"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "go": "pop",
+    "four": "tick",
+    "code": "drop",
+    "rest": "rise"
+   }
+  },
+  {
+   "id": "S14",
+   "pause_after": 0.3,
+   "reveals": {
+    "fn": "一个函数",
+    "law": "铁律",
+    "time": "只由时间决定",
+    "same": "同一个时刻",
+    "pic": "同一幅画",
+    "hf": "HyperFrames",
+    "play": "从头播放",
+    "jump": "跳着取帧"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "law": "drop",
+    "pic": "ding",
+    "hf": "pop",
+    "jump": "tick"
+   }
+  },
+  {
+   "id": "S15",
+   "pause_after": 0.3,
+   "reveals": {
+    "ask": "对上旁白",
+    "tts": "语音合成",
+    "word": "每个词",
+    "sec": "换成秒",
+    "table": "同一张表",
+    "jump": "“跳”",
+    "land": "起跳"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "word": "tick",
+    "sec": "drop",
+    "jump": "pop",
+    "land": "ding"
+   },
+   "source": {
+    "ids": [
+     "F18"
+    ],
+    "text": "Microsoft Learn《How to synthesize speech from text》"
+   }
+  },
+  {
+   "id": "S16",
+   "pause_after": 0.3,
+   "reveals": {
+    "give": "交给引擎",
+    "a": "校验",
+    "b": "配音",
+    "c": "混音",
+    "d": "合成",
+    "e": "检查、",
+    "f": "渲染、",
+    "g": "封装",
+    "h": "验收",
+    "hf": "HyperFrames",
+    "change": "一变",
+    "resume": "接着跑"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "give": "rise",
+    "h": "ding",
+    "hf": "sparkle",
+    "resume": "drop"
+   }
+  },
+  {
+   "id": "S17",
+   "pause_after": 0.3,
+   "reveals": {
+    "three": "三道自检",
+    "preview": "预览拼图",
+    "shots": "取三帧",
+    "look": "打开看",
+    "broken": "画坏",
+    "over": "压住人",
+    "corner": "挤在一角"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "three": "pop",
+    "shots": "tick",
+    "look": "sparkle",
+    "broken": "drop"
+   }
+  },
+  {
+   "id": "S18",
+   "pause_after": 0.3,
+   "reveals": {
+    "eleven": "十一项",
+    "number": "数字",
+    "verbatim": "逐字一致",
+    "loud": "响度",
+    "first": "首帧",
+    "motion": "查动态",
+    "frozen": "两秒",
+    "gap": "四秒",
+    "stop": "停下"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "eleven": "tick",
+    "number": "pop",
+    "loud": "rise",
+    "stop": "drop"
+   }
+  },
+  {
+   "id": "S19",
+   "pause_after": 0.3,
+   "reveals": {
+    "third": "第三道",
+    "notgood": "不等于好看",
+    "sample": "抽一帧",
+    "grid": "拼成图",
+    "compare": "对照节拍表",
+    "real": "真的"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "notgood": "pop",
+    "sample": "tick",
+    "compare": "whoosh",
+    "real": "ding"
+   }
+  },
+  {
+   "id": "S20",
+   "pause_after": 0.3,
+   "reveals": {
+    "pit": "踩坑",
+    "css": "样式表",
+    "still": "根本没动",
+    "text": "画进画布",
+    "escape": "数字核对",
+    "walk": "正面摆腿",
+    "back": "倒退",
+    "note": "记一条"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "pit": "drop",
+    "text": "drop",
+    "walk": "drop",
+    "note": "ding"
+   }
+  },
+  {
+   "id": "S21",
+   "pause_after": 0.3,
+   "reveals": {
+    "cant": "判断不了",
+    "music": "好不好听",
+    "say": "读音",
+    "phone": "手机",
+    "human": "由人来听",
+    "deliver": "交付",
+    "open": "还没验证",
+    "list": "列出来"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "music": "pop",
+    "human": "rise",
+    "deliver": "whoosh",
+    "list": "ding"
+   }
+  },
+  {
+   "id": "S22",
+   "pause_after": 0.3,
+   "reveals": {
+    "topic": "一个主题",
+    "three": "三样东西",
+    "four": "四个文件",
+    "eight": "八道工序",
+    "checks": "三道自检",
+    "ear": "人的耳朵",
+    "this": "这一支"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "topic": "pop",
+    "ear": "sparkle",
+    "this": "whoosh"
+   }
+  },
+  {
+   "id": "S23",
+   "pause_after": 3.0,
+   "reveals": {
+    "try": "自己试试",
+    "notyet": "直接出片",
+    "skill": "一个 Skill",
+    "follow": "照着做",
+    "check": "自己查",
+    "brand": "极客AI科技",
+    "use": "真正用起来"
+   },
+   "sfx": {
+    "start": "whoosh",
+    "notyet": "pop",
+    "check": "ding",
+    "brand": "rise",
+    "use": "sparkle"
+   }
+  }
+ ]
+}

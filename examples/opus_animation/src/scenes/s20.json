@@ -1,0 +1,20 @@
+{
+ "labels": {
+  "s20_preview": "预览",
+  "s20_film": "成片",
+  "s20_still": "不动了",
+  "s20_num": "30",
+  "s20_escape": "逃过核对",
+  "s20_where": "往哪走？",
+  "s20_note": "记进说明书"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "pit": "drop",
+  "text": "drop",
+  "walk": "drop",
+  "note": "ding"
+ },
+ "cut": "band",
+ "pause_after": 0.3
+}

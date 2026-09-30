@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s07_four": "4 条硬规则",
+  "s07_card": "不做文字卡片",
+  "s07_scene": "每镜是场景",
+  "s07_onword": "动在字上",
+  "s07_act": "角色要演"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "four": "pop",
+  "card": "drop",
+  "onword": "tick",
+  "stand": "ding"
+ },
+ "cut": "band",
+ "pause_after": 0.5
+}

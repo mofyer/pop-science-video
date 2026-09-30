@@ -1,0 +1,19 @@
+{
+ "labels": {
+  "s09_step1": "第 1 步",
+  "s09_step2": "第 2 步",
+  "s09_topic": "一个主题",
+  "s09_ledger": "事实台账",
+  "s09_narr": "旁白",
+  "s09_beat": "节拍表"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "topic": "pop",
+  "notyet": "whoosh",
+  "three": "tick",
+  "beat": "ding"
+ },
+ "cut": [877, 309],
+ "pause_after": 0.7
+}

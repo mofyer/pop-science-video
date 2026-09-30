@@ -1,0 +1,20 @@
+{
+ "labels": {
+  "s05_skill": "Skill",
+  "s05_model": "模型：动脑",
+  "s05_engine": "引擎：干活",
+  "s05_nomodel": "不用大模型"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "engine": "rise",
+  "split": "drop",
+  "code": "pop",
+  "nomodel": "ding"
+ },
+ "cut": [
+  1116,
+  649
+ ],
+ "pause_after": 0.4
+}

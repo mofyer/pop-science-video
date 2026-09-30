@@ -1,0 +1,2 @@
+# Pinned for the repo's .venv; the SDK version is part of the narration cache key.
+azure-cognitiveservices-speech==1.52.0

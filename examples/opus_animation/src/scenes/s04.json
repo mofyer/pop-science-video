@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s04_name": "pop-science-video",
+  "s04_manual": "说明书",
+  "s04_motion": "动效手册",
+  "s04_kit": "绘图库",
+  "s04_say": "做科普视频"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "three": "rise",
+  "kit": "pop",
+  "say": "tick",
+  "open": "ding"
+ },
+ "cut": "band",
+ "pause_after": 0.6
+}

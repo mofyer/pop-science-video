@@ -1,0 +1,22 @@
+{
+ "labels": {
+  "s06_open": "开源",
+  "s06_hf": "HyperFrames",
+  "s06_page": "一张网页",
+  "s06_when": "第几秒出现",
+  "s06_inside": "写在网页里",
+  "s06_browser": "后台浏览器",
+  "s06_shot": "逐帧截图",
+  "s06_ff": "FFmpeg",
+  "s06_same": "同样的成片"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "hf": "pop",
+  "page": "whoosh",
+  "shot": "tick",
+  "encode": "rise",
+  "out": "ding"
+ },
+ "cut": "band"
+}

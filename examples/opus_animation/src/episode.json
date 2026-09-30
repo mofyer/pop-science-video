@@ -1,0 +1,52 @@
+{
+ "spec": {
+  "title": "不会画画也能做动画_Opus5.5出片工作流全拆解",
+  "series": "极客Ai科技 · AI 动画小课堂",
+  "sheet": "production-sheet.md",
+  "voice": "zh-CN-XiaoyiNeural",
+  "music": {
+   "synth": "marimba",
+   "bpm": 108,
+   "gain_db": -11
+  },
+  "footer": "角色与画面为示意",
+  "accent": [
+   "#4b4fd9",
+   "#f08a3c"
+  ],
+  "motion": {
+   "max_frozen": 2.0,
+   "max_beat_gap": 4.0
+  }
+ },
+ "closing_pause": 3.0,
+ "numbers": "5.5、30、1、2、3、4、8、11、0.7",
+ "sources": [
+  {
+   "id": "F01",
+   "label": "Anthropic《Models overview》",
+   "url": "https://platform.claude.com/docs/en/about-claude/models/overview"
+  },
+  {
+   "id": "F02",
+   "label": "Claude Code 文档《Extend Claude with skills》",
+   "url": "https://code.claude.com/docs/en/skills"
+  },
+  {
+   "id": "F06",
+   "label": "HyperFrames（heygen-com/hyperframes）README",
+   "url": "https://github.com/heygen-com/hyperframes"
+  },
+  {
+   "id": "F18",
+   "label": "Microsoft Learn《How to synthesize speech from text》",
+   "url": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/how-to-speech-synthesis"
+  }
+ ],
+ "scene_source": {
+  "S02": "F01",
+  "S03": "F02",
+  "S06": "F06",
+  "S15": "F18"
+ }
+}

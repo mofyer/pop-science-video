@@ -1,0 +1,18 @@
+{
+ "labels": {
+  "s17_three": "3 道自检",
+  "s17_preview": "预览拼图",
+  "s17_shots": "每镜 3 帧",
+  "s17_broken": "画坏了",
+  "s17_over": "压住人",
+  "s17_corner": "挤在一角"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "three": "pop",
+  "shots": "tick",
+  "look": "sparkle",
+  "broken": "drop"
+ },
+ "cut": "band"
+}

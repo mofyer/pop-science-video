@@ -1,0 +1,10 @@
+{
+  "name": "pop-science-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pinned Node dependencies of the video engine: HyperFrames renders the page, GSAP drives its timeline.",
+  "dependencies": {
+    "gsap": "3.14.2",
+    "hyperframes": "0.8.91"
+  }
+}

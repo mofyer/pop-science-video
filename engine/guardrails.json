@@ -1,0 +1,8 @@
+{
+  "note": "Blocking rules for narration, on-screen text and subtitles. Patterns are Python regular expressions. An exception needs the user's approval recorded in episode.spec.json guardrail_exceptions.",
+  "rules": [
+    {"id": "fabricated_first_person", "pattern": "我(前阵子|刷到|看完|身边有个|认识一个|的一个朋友)|前阵子我", "why": "presents an unverifiable personal anecdote as real; use a declared hypothetical instead"},
+    {"id": "guaranteed_outcome", "pattern": "(?<!不)(保证|一定能|必然)[^。，；]{0,8}(治愈|治好|根治|见效|成功|暴富)|包治|稳赚", "why": "promises a result nobody can guarantee"},
+    {"id": "profanity", "pattern": "操蛋|他妈的|卧槽|傻逼|屌丝", "why": "profanity"}
+  ]
+}

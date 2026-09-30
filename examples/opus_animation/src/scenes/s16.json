@@ -1,0 +1,23 @@
+{
+ "labels": {
+  "s16_eight": "8 道工序",
+  "s16_a": "校验",
+  "s16_b": "配音",
+  "s16_c": "混音",
+  "s16_d": "合成",
+  "s16_e": "检查",
+  "s16_f": "渲染",
+  "s16_g": "封装",
+  "s16_h": "验收",
+  "s16_hf": "HyperFrames",
+  "s16_redo": "从头再来"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "give": "rise",
+  "h": "ding",
+  "hf": "sparkle",
+  "resume": "drop"
+ },
+ "cut": "band"
+}

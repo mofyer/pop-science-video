@@ -1,0 +1,20 @@
+{
+ "labels": {
+  "s12_wait": "等你确认",
+  "s12_v1": "第 1 版",
+  "s12_v2": "第 2 版",
+  "s12_skill": "Skill",
+  "s12_hf": "HyperFrames",
+  "s12_v3": "第 3 版",
+  "s12_go": "开工"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "gate": "tick",
+  "twice": "drop",
+  "missed": "pop",
+  "third": "ding"
+ },
+ "cut": "band",
+ "pause_after": 1.0
+}

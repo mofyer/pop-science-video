@@ -1,0 +1,19 @@
+{
+ "labels": {
+  "s22_topic": "1 个主题",
+  "s22_three": "3 样东西",
+  "s22_four": "4 个文件",
+  "s22_eight": "8 道工序",
+  "s22_checks": "3 道自检",
+  "s22_ear": "人的耳朵",
+  "s22_this": "这支视频也是"
+ },
+ "sfx": {
+  "start": "whoosh",
+  "topic": "pop",
+  "ear": "sparkle",
+  "this": "whoosh"
+ },
+ "cut": "band",
+ "pause_after": 0.3
+}
