@@ -144,10 +144,10 @@ def stage_mix(root, options):
 
 
 def check_labels(root, resolved):
-    """Stop before rendering when a stage label shows an unsourced number or a banned claim."""
+    """Stop before rendering when a stage label or the cover shows an unsourced number or a banned claim."""
     import spec as spec_module
     import verify
-    text = "\n".join(read_json(root / "build" / "labels.json").values())
+    text = "\n".join([*read_json(root / "build" / "labels.json").values(), *resolved["cover"].values()])
     missing = verify.unsourced_numbers(text, (root / resolved["sheet"]["file"]).read_text(encoding="utf-8"))
     if missing:
         raise PipelineError(f"Label numbers not in the production sheet: {missing}")

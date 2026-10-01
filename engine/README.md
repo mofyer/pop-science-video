@@ -70,7 +70,7 @@ tools/setup.sh            # npm ci，建 .venv 并安装 requirements.txt
 | `subtitles` | 字幕与旁白逐字一致，时间有序，不超出片长 |
 | `onscreen_numbers` | 页面上可见文字里的数字都能在制作单中找到 |
 | `guardrails` | 上屏文字和字幕里没有禁用说法（[guardrails.json](guardrails.json)：编造的第一人称经历、保证效果的承诺、粗口） |
-| `first_frame` | 首帧栏目名以下已经有画面 |
+| `first_frame` | 首帧就是封面：封面主标题在页面上，栏目名以下已经有画面 |
 | `no_empty_frames` | 每一镜抽一帧（镜内 68% 处），舞台区都有内容 |
 | `motion` | 规格写了 `motion` 才检查：最长完全静止、两次明显变化之间的最长间隔都不超过阈值 |
 | `secret_scan` | 期目录的文本文件里没有 Azure 密钥；读不到密钥配置时记为未通过 |

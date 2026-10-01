@@ -21,7 +21,7 @@ SHEET = """# 测试片
 
 建议截图收藏。
 """
-SPEC = {"title": "测试片", "series": "一分钟科普",
+SPEC = {"title": "测试片", "series": "一分钟科普", "cover": {"title": "画面为什么会动", "subtitle": "动画的原理"},
         "sources": [{"id": "F01", "label": "测试来源", "url": "https://example.org/frames"}],
         "scenes": [{"id": "S01", "reveals": {"thirty": "三十张", "moves": "起来"}, "sfx": {"start": "whoosh", "thirty": "pop"},
                     "source": {"ids": ["F01"], "text": "测试来源"}},

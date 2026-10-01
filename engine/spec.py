@@ -18,6 +18,8 @@ DEFAULT_PAUSE = 0.6
 MUSIC_DEFAULTS = {"synth": "marimba", "bpm": 108, "gain_db": -14}
 REVEAL_KEY = re.compile(r"^[a-z][a-z0-9_]*$")
 HEX_COLOUR = re.compile(r"#[0-9a-fA-F]{6}")
+# The film's first frame is its cover: a title and an optional subtitle, short enough to stay on one line each.
+COVER_LIMITS = {"title": 16, "subtitle": 28}
 # Model-written visuals must render the same frame every time and stay inside the episode.
 VISUALS_FORBIDDEN = [
     (re.compile(r"Math\.random"), "Math.random makes frames non-deterministic"),
@@ -137,6 +139,14 @@ def resolve(episode_dir):
         _require(isinstance(accent, list) and len(accent) == 2 and all(isinstance(c, str) and HEX_COLOUR.fullmatch(c) for c in accent),
                  "accent must be two #rrggbb colours")
         accent = [c.lower() for c in accent]
+    cover = spec.get("cover")
+    _require(isinstance(cover, dict) and "title" in cover and set(cover) <= set(COVER_LIMITS),
+             "cover needs a title and may have a subtitle: the film's first frame is its cover")
+    _text(cover["title"], "cover.title")
+    _require(isinstance(cover.get("subtitle", ""), str), "cover.subtitle must be a string")
+    cover = {field: cover.get(field, "").strip() for field in COVER_LIMITS}
+    for field, limit in COVER_LIMITS.items():
+        _require(len(cover[field]) <= limit, f"cover.{field} must be at most {limit} characters")
     music = {**MUSIC_DEFAULTS, **spec.get("music", {})}
     _require(set(music) == set(MUSIC_DEFAULTS), "music takes synth, bpm and gain_db only")
     _require(music["synth"] in MUSIC_STYLES, f"music.synth must be one of {MUSIC_STYLES}")
@@ -182,10 +192,11 @@ def resolve(episode_dir):
             errors += guardrail_violations(source["text"], f"{scene_id} source line", exceptions, scene_id)
         scenes.append({"id": scene_id, "narration": narration, "source": source, "reveals": reveals,
                        "pause_after": float(pause), "sfx": sounds})
+    errors += guardrail_violations(" ".join(cover.values()), "cover", exceptions)
     if errors:
         raise PipelineError("Banned claims found:\n" + "\n".join(errors))
     title = _text(spec.get("title"), "title")
-    resolved = {"title": title, "series": _text(spec.get("series"), "series"),
+    resolved = {"title": title, "cover": cover, "series": _text(spec.get("series"), "series"),
                 "footer": spec.get("footer", "情境与图表为示意"), "voice": voice, "music": music,
                 "reveal_timing": timing, "motion": motion,
                 "sources": sources, "guardrail_exceptions": exceptions,

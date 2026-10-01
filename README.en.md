@@ -34,7 +34,7 @@ Step 1  The model hands over three things and waits for your approval
    ▼
 Step 2  The model writes four files
         production-sheet.md   production sheet: the ledger and the narration
-        episode.spec.json     spec: beat phrases, sound effects, music, thresholds
+        episode.spec.json     spec: cover, beat phrases, sound effects, music, thresholds
         kit.mjs               drawing library: characters, camera, transitions, props
         visuals.mjs           drawing code: one function per scene; the picture depends on time only
    │

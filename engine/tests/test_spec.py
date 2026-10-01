@@ -38,6 +38,21 @@ class Resolve(unittest.TestCase):
         self.assertEqual(resolved["scenes"][0]["sfx"], {"start": "whoosh", "thirty": "pop"})
         self.assertEqual((resolved["scenes"][1]["source"], resolved["scenes"][1]["reveals"], resolved["scenes"][1]["sfx"]), (None, {}, {}))
 
+    def test_the_cover_is_required_and_its_lines_are_short(self):
+        self.assertEqual(spec.resolve(self.root)["cover"], {"title": "画面为什么会动", "subtitle": "动画的原理"})
+        edit_spec(self.root, lambda s: s["cover"].pop("subtitle"))
+        self.assertEqual(spec.resolve(self.root)["cover"], {"title": "画面为什么会动", "subtitle": ""})
+        for change, message in [(lambda s: s.pop("cover"), "cover needs a title"),
+                                (lambda s: s.update(cover="画面为什么会动"), "cover needs a title"),
+                                (lambda s: s["cover"].update(tagline="x"), "cover needs a title"),
+                                (lambda s: s["cover"].update(title=" "), "cover.title must be a non-empty string"),
+                                (lambda s: s["cover"].update(title="一" * 17), "cover.title must be at most 16 characters"),
+                                (lambda s: s["cover"].update(subtitle=3), "cover.subtitle must be a string"),
+                                (lambda s: s["cover"].update(subtitle="一" * 29), "cover.subtitle must be at most 28 characters"),
+                                (lambda s: s["cover"].update(title="照做保证见效"), "cover: rule guaranteed_outcome")]:
+            with self.subTest(message=message):
+                self.assert_rejected(change, message)
+
     def test_a_theme_field_is_refused(self):
         self.assert_rejected(lambda s: s.update(theme="pop"), "theme is not a spec field.*full-frame canvas")
 

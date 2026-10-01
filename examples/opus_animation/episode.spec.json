@@ -1,5 +1,9 @@
 {
  "title": "不会画画也能做动画_Opus5.5出片工作流全拆解",
+ "cover": {
+  "title": "不会画画也能做动画",
+  "subtitle": "Opus 5.5 出片工作流全拆解"
+ },
  "series": "极客Ai科技 · AI 动画小课堂",
  "sheet": "production-sheet.md",
  "voice": "zh-CN-XiaoyiNeural",

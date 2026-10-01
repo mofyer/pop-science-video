@@ -223,8 +223,11 @@ def verify(root, resolved, final):
     keyframes.mkdir(parents=True, exist_ok=True)
     opening = keyframes / "first-frame.png"
     extract_frame(final, 0, opening)
-    drawn = has_art(final, 0, OPENING_REGION)
-    check("first_frame", drawn, "the opening frame already shows the first scene" if drawn else "the opening frame is blank below the series badge")
+    # The first frame is the cover: the cover's title on the page, over a first scene that is already drawn.
+    drawn, cover = has_art(final, 0, OPENING_REGION), resolved["cover"]["title"]
+    covered = cover in on_screen.splitlines()
+    check("first_frame", drawn and covered, f"the opening frame shows the cover “{cover}” over the first scene" if drawn and covered
+          else f"the cover “{cover}” is not on the page" if not covered else "the opening frame is blank below the series badge")
     frames, empty = [opening], []
     for scene in timeline["scenes"]:
         at = scene["start"] + (scene["end"] - scene["start"]) * .68

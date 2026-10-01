@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/0632d1b6-8e62-4832-aa45-941754234241
    ▼
 第二步  模型写四个文件
         production-sheet.md   制作单：台账和旁白
-        episode.spec.json     规格：节拍短语、音效、配乐、阈值
+        episode.spec.json     规格：封面、节拍短语、音效、配乐、阈值
         kit.mjs               绘图库：角色、镜头、转场、道具
         visuals.mjs           画面代码：每镜一个函数，画面只由时间决定
    │

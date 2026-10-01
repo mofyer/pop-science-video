@@ -11,7 +11,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from helpers import ENGINE, edit_spec, sample_episode
+from helpers import ENGINE, edit_spec, sample_episode, write_wav
 
 import make_episode  # noqa: E402
 import sfx  # noqa: E402
@@ -123,7 +123,47 @@ class StageCompose(unittest.TestCase):
         self.assertEqual(json.loads((self.root / "build" / "labels.json").read_text(encoding="utf-8")), {"thirty": "一秒 30 张"})
         times = json.loads((self.root / "build" / "preview-times.json").read_text(encoding="utf-8"))
         self.assertEqual([len(scene["shots"]) for scene in times], [3, 3])
-        self.assertTrue(times[0]["start"] < times[0]["shots"][0] < times[0]["shots"][2] < times[0]["end"])
+        # The film's first shot is its first frame, the cover; every other shot falls inside its scene.
+        self.assertEqual(times[0]["shots"][0], 0)
+        self.assertTrue(times[0]["shots"][0] < times[0]["shots"][1] < times[0]["shots"][2] < times[0]["end"])
+        self.assertTrue(times[1]["start"] < times[1]["shots"][0] < times[1]["shots"][2] < times[1]["end"])
+
+    def test_the_cover_opens_the_film_over_the_first_scene(self):
+        for subtitle, card in (("动画的原理", '<div class="cover-title">画面为什么会动</div><div class="cover-subtitle">动画的原理</div>'),
+                               (None, '<div class="cover-title">画面为什么会动</div></div>')):
+            with self.subTest(subtitle=subtitle):
+                if subtitle is None:
+                    edit_spec(self.root, lambda s: s["cover"].pop("subtitle"))
+                result = self.compose()
+                self.assertEqual(result.returncode, 0, result.stderr)
+                html = (self.root / "preview" / "index.html").read_text(encoding="utf-8")
+                self.assertIn('<div id="cover" class="cover">' + card, html)
+                # Whole on frame 0, then faded out over the first scene, which keeps playing underneath.
+                self.assertIn("tl.fromTo('#cover',{opacity:1},{opacity:0,duration:0.4,ease:'none'},1);", html)
+                self.assertIn("画面为什么会动", verify.visible_text(html))
+                rules = html.splitlines()
+                # The card covers the stage but not the captions, and the series badge stays on top of it.
+                self.assertIn("height:890px", next(line for line in rules if line.startswith(".cover{")))
+                self.assertIn("z-index:6", next(line for line in rules if line.startswith(".series{")))
+
+    def test_no_caption_shows_on_the_cover_frame(self):
+        make_episode.run(self.root, SimpleNamespace(from_stage=None, until="validate", retry_tts=[]))
+        materialize_public(self.root / "public")
+        write_json(self.root / "timeline.json", {"scenes": [
+            {"id": "S01", "start": 0, "end": 3, "duration": 2.5,
+             "subtitles": [{"text": "一秒钟放三十张，", "start": 0, "end": 1.2}, {"text": "画面就动起来。张数越多，动作越顺。", "start": 1.2, "end": 2.5}]},
+            {"id": "S02", "start": 3, "end": 5, "duration": 1.5, "subtitles": [{"text": "建议截图收藏。", "start": 0, "end": 1.5}]}]})
+        write_json(self.root / "build" / "beats.json", {"S01": {"thirty": .5, "moves": 1.0}, "S02": {}})
+        (self.root / "audio").mkdir(exist_ok=True)
+        write_wav(self.root / "audio" / "final-mix.wav", 5)
+        result = subprocess.run([tool("node"), str(ENGINE / "compose_stage.mjs"), str(self.root)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        html = (self.root / "index.html").read_text(encoding="utf-8")
+        self.assertIn('<div id="cover" class="cover">', html)
+        # A cue that starts at 0 waits one frame, so frame 0 is the cover alone; later cues keep their times.
+        self.assertRegex(html, r"tl\.set\('#caption-S01-0',\{opacity:1\},0\.0333")
+        self.assertIn("tl.set('#caption-S01-1',{opacity:1},1.2);", html)
+        self.assertIn("tl.set('#caption-S02-0',{opacity:1},3);", html)
 
     def test_accent_recolours_the_series_text_and_the_progress_bar(self):
         default = (".series{", "color:#4b4fd9;"), (".progress{", "linear-gradient(90deg,#4b4fd9,#f08a3c)"), (".preview{", "color:#4b4fd9;")
@@ -186,6 +226,13 @@ class StageCompose(unittest.TestCase):
             make_episode.check_labels(self.root, resolved)
         write_json(self.root / "build" / "labels.json", {"thirty": "照做保证见效"})
         with self.assertRaisesRegex(PipelineError, "guaranteed_outcome"):
+            make_episode.check_labels(self.root, resolved)
+
+    def test_cover_numbers_are_checked_before_rendering(self):
+        self.compose()
+        resolved = json.loads((self.root / "build" / "resolved.json").read_text(encoding="utf-8"))
+        resolved["cover"]["subtitle"] = "一秒 9 张"
+        with self.assertRaisesRegex(PipelineError, r"Label numbers not in the production sheet: \['9'\]"):
             make_episode.check_labels(self.root, resolved)
 
     def test_fingerprints_cover_the_kit_pictures_and_sounds(self):
@@ -408,10 +455,11 @@ class VerifyHelpers(unittest.TestCase):
                             "-filter_complex", "[0:v][1:v]overlay=x='200+t*600':y=400[v];[2:a]volume=0.01[a]", "-map", "[v]", "-map", "[a]",
                             "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac", "-ac", "2", str(final)], check=True)
             (root / "production-sheet.md").write_text("| F01 | 一秒 30 张画面 |\n", encoding="utf-8")
-            (root / "index.html").write_text('<div class="lb">一秒 30 张</div><div class="caption"><div>原文。</div></div>', encoding="utf-8")
+            page = '<div class="lb">一秒 30 张</div><div class="caption"><div>原文。</div></div>'
+            (root / "index.html").write_text(page + '<div id="cover" class="cover"><div class="cover-title">测试封面</div></div>', encoding="utf-8")
             (root / "output" / "subtitles.zh-CN.srt").write_text("1\n00:00:00,100 --> 00:00:01,500\n原文。\n", encoding="utf-8")
             write_json(root / "timeline.json", {"scenes": [{"id": "S01", "start": 0, "end": 2, "subtitles": [{"text": "原文。"}]}]})
-            resolved = {"title": "测试片", "scenes": [{"id": "S01", "narration": "原文。"}], "sheet": {"file": "production-sheet.md"},
+            resolved = {"title": "测试片", "cover": {"title": "测试封面", "subtitle": ""}, "scenes": [{"id": "S01", "narration": "原文。"}], "sheet": {"file": "production-sheet.md"},
                         "guardrail_exceptions": [], "motion": {"max_frozen": 1, "max_beat_gap": 1}}
             key_file = keys / "key.env"
             key_file.write_text("AZURE_SPEECH_KEY=abcdef0123\nAZURE_SPEECH_REGION=eastus\n")
@@ -426,6 +474,11 @@ class VerifyHelpers(unittest.TestCase):
             self.assertEqual(report["structure"]["opening"], {"id": "S01", "seconds": 2, "first_cue": "原文。"})
             for produced in ("verification.md", "keyframes-contact.png", "keyframes/first-frame.png", "keyframes/S01.png", "onscreen-text.txt"):
                 self.assertTrue((root / "evidence" / produced).is_file(), produced)
+            # A page without the cover fails the first-frame check even though the frame has artwork.
+            (root / "index.html").write_text(page, encoding="utf-8")
+            with patch.object(verify, "files_containing_secret", lambda path: scan(path, key_file)):
+                with self.assertRaisesRegex(PipelineError, r"first_frame: the cover “测试封面” is not on the page"):
+                    verify.verify(root, resolved, final)
         finally:
             shutil.rmtree(root)
             shutil.rmtree(keys)

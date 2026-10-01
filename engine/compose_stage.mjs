@@ -8,6 +8,9 @@ import {pathToFileURL} from 'node:url';
 
 const PREVIEW_SECONDS = 10;
 const PREVIEW_SHOTS = [.12, .5, .92];
+// The film's first frame is its cover: the title card over the first scene, which is already drawn and already
+// speaking underneath. It holds for a second, fades out, and no caption shows on frame 0.
+const COVER_HOLD = 1, COVER_FADE = .4, FRAME = 1 / 30;
 const dir = path.resolve(process.argv[2] || '');
 const preview = process.argv.includes('--preview');
 const resolved = JSON.parse(fs.readFileSync(path.join(dir, 'build', 'resolved.json'), 'utf8'));
@@ -151,13 +154,16 @@ const CSS = `
 #stage{position:absolute;inset:0;width:1920px;height:1080px}
 .lb,.im{position:absolute;left:0;top:0;z-index:2;transform-origin:center;opacity:0}
 .lb{white-space:nowrap;line-height:1.25;border-radius:999px}
-.series{position:absolute;left:64px;top:40px;z-index:3;padding:9px 26px;border-radius:999px;background:#fff;color:${accent};font-size:25px;font-weight:800;letter-spacing:2px;box-shadow:0 6px 18px rgba(40,40,80,.14)}
+.series{position:absolute;left:64px;top:40px;z-index:6;padding:9px 26px;border-radius:999px;background:#fff;color:${accent};font-size:25px;font-weight:800;letter-spacing:2px;box-shadow:0 6px 18px rgba(40,40,80,.14)}
 .caption{position:absolute;left:150px;right:150px;top:908px;display:flex;justify-content:center;text-align:center;z-index:4}
 .caption>div{max-width:1560px;padding:8px 34px;font-size:42px;font-weight:700;line-height:1.4;white-space:pre-line;color:#0f2a4a;background:rgba(255,255,255,.95);border-radius:20px;box-shadow:0 8px 26px rgba(40,40,80,.16);overflow-wrap:break-word}
 .src,.footer{position:absolute;bottom:18px;z-index:3;padding:3px 14px;border-radius:999px;background:rgba(255,255,255,.88);font-size:19px;letter-spacing:1px;color:#274463;font-weight:600}
 .src{left:64px}.footer{right:64px}
 .progress{position:absolute;bottom:0;left:0;right:0;height:6px;z-index:5;background:linear-gradient(90deg,${accent},${accentEnd});transform-origin:left center}
 .preview{position:absolute;right:64px;top:46px;z-index:5;color:${accent};font-size:22px;font-weight:700}
+.cover{position:absolute;left:0;top:0;width:1920px;height:890px;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:rgba(255,255,255,.45)}
+.cover-title{padding:20px 64px;border-radius:40px;background:#fff;color:${accent};font-size:88px;font-weight:900;letter-spacing:4px;line-height:1.25;white-space:nowrap;box-shadow:0 14px 40px rgba(40,40,80,.18)}
+.cover-subtitle{padding:10px 40px;border-radius:999px;background:${accent};color:#fff;font-size:44px;font-weight:800;letter-spacing:2px;white-space:nowrap}
 `;
 
 const parts = [`<canvas id="stage" class="clip" data-start="0" data-duration="${total}" data-track-index="1" width="1920" height="1080"></canvas>`];
@@ -175,9 +181,12 @@ for (const [i, s] of timeline.entries()) {
   }
   for (const [j, c] of s.subtitles.entries()) {
     parts.push(`<div id="caption-${s.id}-${j}" class="caption" style="opacity:0"><div>${esc(c.text.trim())}</div></div>`);
-    calls.push(`tl.set('#caption-${s.id}-${j}',{opacity:1},${s.start + c.start});tl.set('#caption-${s.id}-${j}',{opacity:0},${s.start + c.end});`);
+    calls.push(`tl.set('#caption-${s.id}-${j}',{opacity:1},${Math.max(s.start + c.start, FRAME)});tl.set('#caption-${s.id}-${j}',{opacity:0},${s.start + c.end});`);
   }
 }
+const cover = resolved.cover;
+parts.push(`<div id="cover" class="cover"><div class="cover-title">${esc(cover.title)}</div>${cover.subtitle ? `<div class="cover-subtitle">${esc(cover.subtitle)}</div>` : ''}</div>`);
+calls.push(`tl.fromTo('#cover',{opacity:1},{opacity:0,duration:${COVER_FADE},ease:'none'},${COVER_HOLD});`);
 if (!preview) parts.push(`<audio id="mixed-audio" src="audio/final-mix.wav" data-start="0" data-duration="${total}" data-track-index="3" data-volume="1"></audio>`);
 const composition = preview ? 'episode-preview' : 'episode';
 const html = `<!doctype html>
@@ -204,8 +213,9 @@ const dest = path.join(dir, preview ? 'preview/index.html' : 'index.html');
 fs.mkdirSync(path.dirname(dest), {recursive: true});
 fs.writeFileSync(dest, html);
 fs.writeFileSync(path.join(dir, 'build', 'labels.json'), JSON.stringify(labels, null, 2));
-fs.writeFileSync(path.join(dir, 'build', preview ? 'preview-times.json' : 'scene-times.json'), JSON.stringify(timeline.map(s => ({
+// The preview's first shot is frame 0, so the contact sheet opens with the cover.
+fs.writeFileSync(path.join(dir, 'build', preview ? 'preview-times.json' : 'scene-times.json'), JSON.stringify(timeline.map((s, i) => ({
   id: s.id, start: s.start, end: s.end, snapshot: s.start + (s.end - s.start) * .68,
-  ...(preview ? {shots: PREVIEW_SHOTS.map(k => s.start + (s.end - s.start) * k)} : {}),
+  ...(preview ? {shots: PREVIEW_SHOTS.map((k, j) => i === 0 && j === 0 ? 0 : s.start + (s.end - s.start) * k)} : {}),
 })), null, 2));
 console.log(`Built ${preview ? 'silent preview' : 'audio timeline'}: ${timeline.length} stage scenes, ${total.toFixed(3)} s, ${Object.keys(labels).length} labels`);
