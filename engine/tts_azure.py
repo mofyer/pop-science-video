@@ -22,14 +22,26 @@ def normalized(text):
     return "".join(char for char in text if char.isalnum())
 
 
+def _latin(char):
+    return char.isascii() and char.isalnum()
+
+
+def _cut(piece, limit=32):
+    """Where to break an over-long clause: at most `limit` characters, and not inside a Latin word or a number,
+    which would show "Busi" on one subtitle and "ness" on the next. A clause with no such place is cut at the cap."""
+    return next((at for at in range(limit, 0, -1)
+                 if not (_latin(piece[at - 1]) and _latin(piece[at])) and normalized(piece[:at])), limit)
+
+
 def segments(text):
     """Split at Chinese punctuation and newlines, preserving every character; pieces ≤ 32 chars."""
     pieces = re.findall(r"[^，。？！；、\n]*[，。？！；、\n]+|[^，。？！；、\n]+$", text)
     result = []
     for piece in pieces:
         while len(piece) > 32:
-            result.append(piece[:32])
-            piece = piece[32:]
+            at = _cut(piece)
+            result.append(piece[:at])
+            piece = piece[at:]
         if piece:
             if not normalized(piece) and result:
                 result[-1] += piece

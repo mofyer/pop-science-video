@@ -22,6 +22,19 @@ class Text(unittest.TestCase):
         self.assertEqual("".join(pieces), text)
         self.assertLessEqual(max(map(len, pieces)), 32)
 
+    def test_an_over_long_clause_is_not_cut_inside_a_latin_word_or_number(self):
+        # Cut at the 32nd character, this clause used to show "…Pro 和 Busi" and then "ness Premium 用户，".
+        text = "dots 现在先开放给 ChatGPT 的 Pro 和 Business Premium 用户，其中 Pro 在部分地区暂时用不上；"
+        pieces = tts_azure.segments(text)
+        self.assertEqual("".join(pieces), text)
+        self.assertLessEqual(max(map(len, pieces)), 32)
+        self.assertIn("Business Premium 用户，", pieces[1])
+        # "x2025" straddles the 32nd character, so the old cut gave "…十x2" and "025年发布，".
+        self.assertEqual(tts_azure.segments("一二三四五六七八九十" * 3 + "x2025年发布，"), ["一二三四五六七八九十" * 3, "x2025年发布，"])
+        # A clause with no break point at all is still cut at the cap, and a cut never leaves a piece without words.
+        self.assertEqual(tts_azure.segments("A" * 40), ["A" * 32, "A" * 8])
+        self.assertEqual(tts_azure.segments(" " + "A" * 33), [" " + "A" * 31, "AA"])
+
     def test_probe_events_align_and_ignore_punctuation(self):
         # Event shapes and timings as the service returned them for one probe sentence; one word of the sentence was replaced.
         probe = json.loads((FIXTURES / "azure-word-boundary-probe.json").read_text(encoding="utf-8"))
